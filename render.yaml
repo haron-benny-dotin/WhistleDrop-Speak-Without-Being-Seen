@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: whistledrop
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT --no-access-log
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: WD_CASE_SECRET
+        generateValue: true
+      - key: WD_BOOTSTRAP_MOD_USER
+        sync: false
+      - key: WD_BOOTSTRAP_MOD_PASS
+        sync: false
